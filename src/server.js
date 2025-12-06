@@ -3,8 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
-import authRoutes from "./routes/auth.routes";
-import paymentRoutes from "./routes/payment.routes";
+import authRoutes from "./routes/auth.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 import sequelize from "./config/db.config.js";
 
 dotenv.config();
