@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "start:dev": "node src/index.js --watch",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "start:dev": "node src/server.js --watch",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push"
   },

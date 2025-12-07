@@ -6,27 +6,29 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL environment variable is not set");
 }
 
+const isDev = process.env.NODE_ENV === "development";
+
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   protocol: "postgres",
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
+    ssl: isDev
+      ? false
+      : {
+          require: true,
+          rejectUnauthorized: false,
+        },
   },
 });
 
-// } else {
-//   sequelize = new Sequelize(
-//     process.env.DB_NAME,
-//     process.env.DB_USER,
-//     process.env.DB_PASS,
-//     {
-//       host: process.env.DB_HOST,
-//       dialect: "postgres", // or "mysql"
-//       logging: false,
-//     }
-//   );
-// }
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+}
+
+testConnection();
 export default sequelize;
