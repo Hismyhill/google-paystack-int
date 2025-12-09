@@ -1,14 +1,12 @@
 {
   "name": "google-paystack-int",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js",
-    "start:dev": "node src/server.js --watch",
-    "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push"
+    "dev": "nodemon --exec node --loader ts-node/esm src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +14,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "@types/node": "^24.10.2",
     "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -29,7 +28,15 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.5",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.4",
-    "prisma": "^5.17.0"
+    "prisma": "^5.17.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

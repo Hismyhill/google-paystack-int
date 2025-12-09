@@ -1,6 +1,7 @@
 import { google } from "googleapis";
 import jwt from "jsonwebtoken";
-import prisma from "../lib/prisma.js";
+import User from "../models/User.js";
+// import from "../lib/js";
 
 // Initialize the Google OAuth2 client
 const oauth2Client = new google.auth.OAuth2(
@@ -23,7 +24,7 @@ export const generateGoogleAuthURL = () => {
   });
 };
 
-export const handleGoogleCallback = async (code) => {
+export const handleGoogleCallback = async (code: string) => {
   // Exchange the authorization code for tokens
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
@@ -37,7 +38,7 @@ export const handleGoogleCallback = async (code) => {
   }
 
   // Create or update user in the database (upsert)
-  const user = await prisma.user.upsert({
+  const user: any = await User.upsert({
     where: { googleId: userInfo.id },
     update: {
       name: userInfo.name,
@@ -56,7 +57,7 @@ export const handleGoogleCallback = async (code) => {
   // Create a JWT token for the user session
   const token = jwt.sign(
     { userId: user.id, email: user.email },
-    process.env.APP_SECRET,
+    process.env.APP_SECRET!,
     { expiresIn: "7d" }
   );
 

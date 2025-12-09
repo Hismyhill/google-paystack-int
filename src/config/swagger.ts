@@ -7,18 +7,23 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Authentication API",
+      title: "User Authentication and Payment API",
       version: "1.0.0",
-      description: "A REST API with JWT Authentication and RBAC",
+      description:
+        "A REST API for user authentication via Google OAuth and payment processing with Paystack.",
       contact: {
         name: "API Support",
-        url: "http://localhost:" + process.env.PORT + "/api-docs",
+        url: "https://github.com/Hismyhill", // Example contact URL
       },
     },
     servers: [
       {
-        url: "http://localhost:" + process.env.PORT + "/api",
+        url: "http://localhost:" + process.env.PORT,
         description: "Development server",
+      },
+      {
+        url: "https://google-paystack-int.onrender.com",
+        description: "Production server",
       },
     ],
     components: {
@@ -36,7 +41,7 @@ const options = {
       },
     ],
   },
-  apis: ["./src/routes/*.js"], // Path to the API routes
+  apis: ["./src/routes/*.ts"], // Path to the API routes
 };
 
 export const specs = swaggerJsdoc(options);
